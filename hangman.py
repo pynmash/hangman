@@ -33,8 +33,8 @@ while True:  # Main game loop
     while "_ " in wordDisplay and lives > 0:
         print("\n" * 2)
         print(" ".join(wordDisplay))
-        print("correct guesses: " + str(correctGuesses))
-        print("incorrect guesses: " + str(incorrectGuesses))
+        print("correct guesses: " + ", ".join(correctGuesses))
+        print("incorrect guesses: " + ", ".join(incorrectGuesses))
         guess = input("Guess a letter (lives remaining: " + str(lives) + "): ")
         if guess not in correctGuesses or guess not in incorrectGuesses:
             for i in range(0, len(wordChars)):
