@@ -2,6 +2,7 @@
 
 import random
 from wordList import words
+import sys
 
 
 while True:  # Main game loop
@@ -41,11 +42,7 @@ while True:  # Main game loop
                     if guess not in correctGuesses:
                         correctGuesses.append(guess)
                     wordDisplay[i] = guess
-            if (
-                guess not in incorrectGuesses
-                and guess not in correctGuesses
-                and guess != ""
-            ):
+            if guess not in incorrectGuesses and guess not in correctGuesses and guess != "":
                 incorrectGuesses.append(guess)
                 lives = lives - 1
         else:
@@ -57,3 +54,7 @@ while True:  # Main game loop
     else:
         print("You lose!")
         print("The word was: " + word)
+    print("Play another game? (y)es, (n)o")
+    new_game = input()
+    if new_game == "n":
+        sys.exit()
