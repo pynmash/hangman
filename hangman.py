@@ -54,7 +54,7 @@ while True:  # Main game loop
     else:
         print("You lose!")
         print("The word was: " + word)
-    print("Play another game? (y)es, (n)o")
+    print("Play another game? Press 'n' to quit. Any other key to continue.")
     new_game = input()
     if new_game == "n":
         sys.exit()
