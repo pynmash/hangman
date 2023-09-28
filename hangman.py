@@ -85,7 +85,7 @@ while True:  # Main game loop
         printHeader()
         print("\n" * 2)
         print(" ".join(wordDisplay))
-        print("You won with " + lives + " remaining!")
+        print("You won with " + str(lives) + " remaining!")
     else:
         clearScreen()
         printHeader()
