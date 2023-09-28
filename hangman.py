@@ -81,10 +81,15 @@ while True:  # Main game loop
         else:
             print("You already guessed this letter.")
     if lives > 0:
+        clearScreen()
+        printHeader()
         print("\n" * 2)
         print(" ".join(wordDisplay))
         print("You won with " + lives + " remaining!")
     else:
+        clearScreen()
+        printHeader()
+        print("\n" * 2)
         print("You lose!")
         print("The word was: " + word)
     print("Play another game? Press 'n' to quit. Any other key to continue.")
