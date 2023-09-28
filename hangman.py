@@ -69,7 +69,13 @@ try:
             print(" ".join(wordDisplay))
             print("correct guesses: " + ", ".join(correctGuesses))
             print("incorrect guesses: " + ", ".join(incorrectGuesses))
-            guess = input("Guess a letter (lives remaining: " + str(lives) + "): ")
+            while True:
+                guess = input("Guess a letter (lives remaining: " + str(lives) + "): ")
+                if len(guess) != 1:
+                    print('1 letter at a time please.')
+                    continue
+                else:
+                    break
             if guess not in correctGuesses or guess not in incorrectGuesses:
                 for i in range(0, len(wordChars)):
                     if wordChars[i] == guess:
