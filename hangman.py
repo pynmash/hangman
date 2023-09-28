@@ -4,12 +4,13 @@ import random
 from wordList import words
 import sys
 import getpass
+import os
+import subprocess
 
-
-while True:  # Main game loop
-    # ASCII title at beginning of game:
+def printHeader():
     print(
-        r""" ██░ ██  ▄▄▄       ███▄    █   ▄████  ███▄ ▄███▓ ▄▄▄       ███▄    █ 
+            r"""
+ ██░ ██  ▄▄▄       ███▄    █   ▄████  ███▄ ▄███▓ ▄▄▄       ███▄    █ 
 ▓██░ ██▒▒████▄     ██ ▀█   █  ██▒ ▀█▒▓██▒▀█▀ ██▒▒████▄     ██ ▀█   █ 
 ▒██▀▀██░▒██  ▀█▄  ▓██  ▀█ ██▒▒██░▄▄▄░▓██    ▓██░▒██  ▀█▄  ▓██  ▀█ ██▒
 ░▓█ ░██ ░██▄▄▄▄██ ▓██▒  ▐▌██▒░▓█  ██▓▒██    ▒██ ░██▄▄▄▄██ ▓██▒  ▐▌██▒
@@ -18,8 +19,25 @@ while True:  # Main game loop
  ▒ ░▒░ ░  ▒   ▒▒ ░░ ░░   ░ ▒░  ░   ░ ░  ░      ░  ▒   ▒▒ ░░ ░░   ░ ▒░
  ░  ░░ ░  ░   ▒      ░   ░ ░ ░ ░   ░ ░      ░     ░   ▒      ░   ░ ░ 
  ░  ░  ░      ░  ░         ░       ░        ░         ░  ░         ░ 
-"""
-    )
+                                                                     
+
+    """
+        )
+
+def clearScreen():
+    # Clear screen:
+    # Linux/macOS
+    if os.name == 'posix':
+        _= subprocess.call('clear')
+    # Windows
+    elif os.name == 'nt':
+        _= subprocess.call('cls')
+
+while True:  # Main game loop
+    # Clear screen
+    clearScreen()
+    # ASCII title at beginning of game:
+    printHeader()
     while True:
         print('How would you like to play?')
         print('(1) I want you to pick the word for me.')
@@ -45,6 +63,8 @@ while True:  # Main game loop
         wordDisplay.append("_ ")
 
     while "_ " in wordDisplay and lives > 0:
+        clearScreen()
+        printHeader()
         print("\n" * 2)
         print(" ".join(wordDisplay))
         print("correct guesses: " + ", ".join(correctGuesses))
