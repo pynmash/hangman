@@ -3,6 +3,7 @@
 import random
 from wordList import words
 import sys
+import getpass
 
 
 while True:  # Main game loop
@@ -19,7 +20,20 @@ while True:  # Main game loop
  ░  ░  ░      ░  ░         ░       ░        ░         ░  ░         ░ 
 """
     )
-    word = random.choice(words)
+    while True:
+        print('How would you like to play?')
+        print('(1) I wan\'t you to pick the word for me.')
+        print('(2) I want to enter my own word.')
+        mode = input()
+        if mode == '1':
+            word = random.choice(words)
+            break
+        if mode == '2':
+            word = getpass.getpass(prompt='Enter your word: ')
+            break
+        else:
+            print('invalid.')
+            continue
     wordChars = [*word]
     wordDisplay = []
     guess = ""
