@@ -83,7 +83,7 @@ while True:  # Main game loop
     if lives > 0:
         print("\n" * 2)
         print(" ".join(wordDisplay))
-        print("You won!")
+        print("You won with " + lives " remaining!")
     else:
         print("You lose!")
         print("The word was: " + word)
