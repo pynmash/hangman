@@ -3,7 +3,6 @@
 import random
 from wordList import words
 import sys
-import getpass
 import os
 import subprocess
 
@@ -47,7 +46,7 @@ while True:  # Main game loop
             word = random.choice(words)
             break
         if mode == '2':
-            word = getpass.getpass(prompt='Enter your word: ')
+            word = input('Enter your word and press enter: ')
             break
         else:
             print('invalid.')
