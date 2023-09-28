@@ -22,7 +22,7 @@ while True:  # Main game loop
     )
     while True:
         print('How would you like to play?')
-        print('(1) I wan\'t you to pick the word for me.')
+        print('(1) I want you to pick the word for me.')
         print('(2) I want to enter my own word.')
         mode = input()
         if mode == '1':
