@@ -71,6 +71,7 @@ try:
             print("incorrect guesses: " + ", ".join(incorrectGuesses))
             while True:
                 guess = input("Guess a letter (lives remaining: " + str(lives) + "): ")
+                guess = guess.lower()
                 if len(guess) != 1:
                     print('1 letter at a time please.')
                 else:
