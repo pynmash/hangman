@@ -1,96 +1,108 @@
 """This is a hangman game"""
 
-import random
-from wordList import words
-import sys
 import os
+import random
 import subprocess
+import sys
 
-def printHeader():
+from wordList import words
+
+
+def print_header():
     print(
-            r"""
- ██░ ██  ▄▄▄       ███▄    █   ▄████  ███▄ ▄███▓ ▄▄▄       ███▄    █ 
-▓██░ ██▒▒████▄     ██ ▀█   █  ██▒ ▀█▒▓██▒▀█▀ ██▒▒████▄     ██ ▀█   █ 
+        r"""
+ ██░ ██  ▄▄▄       ███▄    █   ▄████  ███▄ ▄███▓ ▄▄▄       ███▄    █
+▓██░ ██▒▒████▄     ██ ▀█   █  ██▒ ▀█▒▓██▒▀█▀ ██▒▒████▄     ██ ▀█   █
 ▒██▀▀██░▒██  ▀█▄  ▓██  ▀█ ██▒▒██░▄▄▄░▓██    ▓██░▒██  ▀█▄  ▓██  ▀█ ██▒
 ░▓█ ░██ ░██▄▄▄▄██ ▓██▒  ▐▌██▒░▓█  ██▓▒██    ▒██ ░██▄▄▄▄██ ▓██▒  ▐▌██▒
 ░▓█▒░██▓ ▓█   ▓██▒▒██░   ▓██░░▒▓███▀▒▒██▒   ░██▒ ▓█   ▓██▒▒██░   ▓██░
- ▒ ░░▒░▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒  ░▒   ▒ ░ ▒░   ░  ░ ▒▒   ▓▒█░░ ▒░   ▒ ▒ 
+ ▒ ░░▒░▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒  ░▒   ▒ ░ ▒░   ░  ░ ▒▒   ▓▒█░░ ▒░   ▒ ▒
  ▒ ░▒░ ░  ▒   ▒▒ ░░ ░░   ░ ▒░  ░   ░ ░  ░      ░  ▒   ▒▒ ░░ ░░   ░ ▒░
- ░  ░░ ░  ░   ▒      ░   ░ ░ ░ ░   ░ ░      ░     ░   ▒      ░   ░ ░ 
- ░  ░  ░      ░  ░         ░       ░        ░         ░  ░         ░ 
-                                                                     
+ ░  ░░ ░  ░   ▒      ░   ░ ░ ░ ░   ░ ░      ░     ░   ▒      ░   ░ ░
+ ░  ░  ░      ░  ░         ░       ░        ░         ░  ░         ░"""
+    )
 
-    """
-        )
 
-def clearScreen():
-    # Clear screen:
+def clear_screen():
     # Linux/macOS
-    if os.name == 'posix':
-        _= subprocess.call('clear')
+    if os.name == "posix":
+        subprocess.call("clear")
     # Windows
-    elif os.name == 'nt':
-        _= subprocess.call('cls')
+    elif os.name == "nt":
+        os.system("cls")
 
-try:
-    while True:  # Main game loop
-        # Clear screen
-        clearScreen()
-        # ASCII title at beginning of game:
-        printHeader()
-        while True:
-            print('How would you like to play?')
-            print('(1) I want you to pick the word for me.')
-            print('(2) I want to enter my own word.')
-            mode = input()
-            if mode == '1':
-                word = random.choice(words)
-                break
-            if mode == '2':
-                word = input('Enter your word and press enter: ')
-                break
-            else:
-                print('invalid.')
-                continue
-        wordChars = [*word]
-        wordDisplay = []
-        guess = ""
-        correctGuesses = []
-        incorrectGuesses = []
-        lives = 12
-    
-        for char in wordChars:
-            wordDisplay.append("_ ")
-    
-        while "_ " in wordDisplay and lives > 0:
-            clearScreen()
-            printHeader()
-            print("\n" * 2)
-            print(" ".join(wordDisplay))
-            print("correct guesses: " + ", ".join(correctGuesses))
-            print("incorrect guesses: " + ", ".join(incorrectGuesses))
+
+while True:  # Main game loop
+    clear_screen()
+    print_header()
+    while True:
+        print("How would you like to play?")
+        print("(1) I want you to pick the word for me.")
+        print("(2) I want to enter my own word.")
+        mode = input()
+        if mode == "1":
+            word = random.choice(words)
+            break
+        if mode == "2":
             while True:
-                guess = input("Guess a letter (lives remaining: " + str(lives) + "): ")
-                guess = guess.lower()
-                if len(guess) != 1:
-                    print('1 letter at a time please.')
-                else:
+                word = input("Enter your word and press enter: ")
+                if word.isalpha():
                     break
-            if guess not in correctGuesses or guess not in incorrectGuesses:
-                for i in range(0, len(wordChars)):
-                    if wordChars[i] == guess:
-                        if guess not in correctGuesses:
-                            correctGuesses.append(guess)
-                        wordDisplay[i] = guess
-                if guess not in incorrectGuesses and guess not in correctGuesses and guess != "":
-                    incorrectGuesses.append(guess)
-                    lives = lives - 1
+                else:
+                    print(
+                        "Please only use letters. Numbers and special' \
+                        'characters are not allowed"
+                    )
+            break
+        else:
+            print("invalid.")
+            continue
+    wordChars = [*word]
+    wordDisplay = []
+    GUESS = ""
+    correctGUESSes = []
+    incorrectGUESSes = []
+    LIVES = 12
+    for char in wordChars:
+        wordDisplay.append("_ ")
+    while "_ " in wordDisplay and LIVES > 0:
+        clear_screen()
+        print_header()
+        print("\n" * 2)
+        print(" ".join(wordDisplay))
+        print("correct GUESSes: " + ", ".join(correctGUESSes))
+        print("incorrect GUESSes: " + ", ".join(incorrectGUESSes))
+        while True:
+            GUESS = input("guess a letter (lives remaining: " + str(LIVES) + "): ")
+            if len(GUESS) != 1:
+                print("1 letter at a time please.")
             else:
-                print("You already guessed this letter.")
-        if lives > 0:
-            print("\n" * 2)
-            print(
-                r'''
+                if not GUESS.isalpha():
+                    print(
+                        "Please only use letters. Numbers and special"
+                        "characters are not allowed"
+                    )
+                break
+        GUESS = GUESS.lower()
+        if GUESS not in correctGUESSes or GUESS not in incorrectGUESSes:
+            for i in range(0, len(wordChars)):
+                if wordChars[i] == GUESS:
+                    if GUESS not in correctGUESSes:
+                        correctGUESSes.append(GUESS)
+                    wordDisplay[i] = GUESS
+            if (
+                GUESS not in incorrectGUESSes
+                and GUESS not in correctGUESSes
+                and GUESS != ""
+            ):
+                incorrectGUESSes.append(GUESS)
+                LIVES -= 1
+        else:
+            print("You already GUESSed this letter.")
+    if LIVES > 0:
+        print("\n" * 2)
+        print(
+            r"""
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣄⢲⣏⢨⣽⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⣾⠃⢙⢴⣞⡟⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -129,13 +141,13 @@ try:
 ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⣦⡾⠟⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀
 ⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀
 ⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠀
-        '''
-            )
-            print(" ".join(wordDisplay))
-            print("You won with " + str(lives) + " lives remaining!")
-        else:
-            print(
-                    r'''
+    """
+        )
+        print(" ".join(wordDisplay))
+        print("You won with " + str(LIVES) + " lives remaining!")
+    else:
+        print(
+            r'''
                          uuuuuuu
                      uu$$$$$$$$$$$uu
                   uu$$$$$$$$$$$$$$$$$uu
@@ -161,16 +173,12 @@ try:
           u$$$uuu$$$$$$$$$uu ""$$$$$$$$$$$uuu$$$
           $$$$$$$$$$""""           ""$$$$$$$$$$$"
            "$$$$$"                      ""$$$$""
-             $$$"                         $$$$ 
-        
-            '''
-                )
-            print("\n" * 2)
-            print("You lose!")
-            print("The word was: " + word)
-        print("Play another game? Press 'n' to quit. Any other key to continue.")
-        new_game = input()
-        if new_game == "n":
-            sys.exit()
-except:
-    sys.exit()
+             $$$"                         $$$$ '''
+        )
+        print("\n" * 2)
+        print("You lose!")
+        print("The word was: " + word)
+    print("Play another game? Press 'n' to quit. Any other key to continue.")
+    new_game = input()
+    if new_game == "n":
+        sys.exit()
