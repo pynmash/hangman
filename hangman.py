@@ -45,7 +45,7 @@ while True:  # Main game loop
             break
         if mode == "2":
             while True:
-                word = input("Enter your word and press enter: ")
+                word = input("Enter your word and press enter: ").lower()
                 if word.isalpha():
                     break
                 else:
